@@ -7,7 +7,11 @@
 
 import Foundation
 
-final class APIService {
+protocol APIServiceProtocol {
+    func search(query: String, page: Int, completion: @escaping (Result<Movies, Error>) -> Void)
+}
+
+final class APIService: APIServiceProtocol {
     let baseUrl: String = "https://openapi.naver.com/v1/search/movie.json?display=10&"
     
     func search(query: String, page: Int, completion: @escaping (Result<Movies, Error>) -> Void) {
