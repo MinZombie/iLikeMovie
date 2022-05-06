@@ -12,6 +12,7 @@ protocol MovieListInput {
     func addFavorite(with item: MovieItemViewModel)
     func removeFavorite(with item: MovieItemViewModel)
     func getFavoriteMovies()
+    func prefetch()
 }
 
 protocol MovieListOutput {
@@ -26,6 +27,7 @@ final class DefaultMovieListViewModel: MovieListViewModel {
     private let service: APIServiceProtocol
     private var page: Int = 0
     private var total: Int = 0
+    private var query: String = ""
     
     // MARK: - Output
     var movies: Observable<[MovieItemViewModel]> = Observable([])
@@ -41,6 +43,7 @@ extension DefaultMovieListViewModel {
     func search(query: String) {
         self.movies.value.removeAll()
         self.page = 0
+        self.query = query
         
         service.search(query: query, page: page) { result in
             switch result {
@@ -100,5 +103,26 @@ extension DefaultMovieListViewModel {
         let filtered = favoriteMovies.value.filter { $0.id != item.id }
         favoriteMovies.value = filtered
 
+    }
+    
+    func prefetch() {
+        self.page += 1
+        if (page * 10) > total {
+            return
+            
+        } else {
+            
+            service.search(query: query, page: page) { result in
+                switch result {
+                case .success(let response):
+                    
+                    _ = response.items.map { self.movies.value.append(MovieItemViewModel.init(movie: $0)) }
+                    
+                case .failure(let error):
+                    
+                    print(error)
+                }
+            }
+        }
     }
 }
