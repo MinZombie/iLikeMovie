@@ -133,7 +133,7 @@ extension MovieListTableViewController: UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieListTableViewCell.identifier, for: indexPath) as? MovieListTableViewCell else { return UITableViewCell() }
         
-        cell.configure(with: viewModel.movies.value[indexPath.row])
+        cell.configure(with: viewModel.movies.value[indexPath.row], viewModel: viewModel)
         
         return cell
     }

@@ -13,6 +13,10 @@ class MovieListTableViewCell: UITableViewCell {
     static let identifier: String = String(describing: MovieListTableViewCell.self)
     static let height: CGFloat = 100
     
+    private var item: MovieItemViewModel!
+    private var viewModel: MovieListViewModel!
+    private var isFavorite: Bool = false
+    
     private let movieImageView: UIImageView = {
        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +37,7 @@ class MovieListTableViewCell: UITableViewCell {
        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setContentCompressionResistancePriority(.init(rawValue: 800), for: .horizontal)
-        button.setImage(UIImage(systemName: "star"), for: .normal)
+        button.setImage(UIImage(systemName: "star.fill"), for: .normal)
         button.tintColor = .gray
         button.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(didTapFavoriteButton(_:)), for: .touchUpInside)
@@ -64,6 +68,11 @@ class MovieListTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpConstraints()
+        //test()
+    }
+    
+    func test() {
+        favoritesImageView.tintColor = item.isFavorite ? .systemYellow : .systemGray
     }
     
     required init?(coder: NSCoder) {
@@ -80,14 +89,38 @@ class MovieListTableViewCell: UITableViewCell {
         rating.text = nil
     }
     
-    func configure(with item: MovieItemViewModel) {
+    func configure(with item: MovieItemViewModel, viewModel: MovieListViewModel) {
+        self.item = item
+        self.viewModel = viewModel
+        self.isFavorite = item.isFavorite
+        
         movieTitle.text = item.title
         director.text = item.director
         actors.text = item.actor
         rating.text = item.userRating
         movieImageView.setImageUrl(item.image)
+        
+        favoritesImageView.tintColor = item.isFavorite ? .systemYellow : .systemGray
     }
     
+}
+
+// MARK: - Objc
+extension MovieListTableViewCell {
+    @objc private func didTapFavoriteButton(_ sender: UIButton) {
+        if item.isFavorite {
+            
+            viewModel.removeFavorite(with: item)
+            
+            
+        } else {
+            
+            viewModel.addFavorite(with: item)
+        }
+        
+        item.isFavorite.toggle()
+        favoritesImageView.tintColor = item.isFavorite ? .systemYellow : .systemGray
+    }
 }
 
 // MARK: - Private
@@ -119,9 +152,5 @@ extension MovieListTableViewCell {
             favoritesImageView.widthAnchor.constraint(equalToConstant: 36)
             
         ])
-    }
-    
-    @objc private func didTapFavoriteButton(_ sender: UIButton) {
-        
     }
 }

@@ -24,6 +24,7 @@
 		A96817F628253D9300262D50 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96817F528253D9300262D50 /* UIImageView.swift */; };
 		A96817F828253DB300262D50 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96817F728253DB300262D50 /* ImageCacheManager.swift */; };
 		A96817FA2825435C00262D50 /* FavoriteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96817F92825435C00262D50 /* FavoriteListViewController.swift */; };
+		A96817FC28254C4B00262D50 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96817FB28254C4B00262D50 /* RealmManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		A96817F528253D9300262D50 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		A96817F728253DB300262D50 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		A96817F92825435C00262D50 /* FavoriteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListViewController.swift; sourceTree = "<group>"; };
+		A96817FB28254C4B00262D50 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 			children = (
 				A96817E328252CA300262D50 /* APIService.swift */,
 				A96817F728253DB300262D50 /* ImageCacheManager.swift */,
+				A96817FB28254C4B00262D50 /* RealmManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				A965B7F52825011700A15FC9 /* MovieListTableViewController.swift in Sources */,
 				A96817E428252CA300262D50 /* APIService.swift in Sources */,
 				A96817E628252CFF00262D50 /* Movies.swift in Sources */,
+				A96817FC28254C4B00262D50 /* RealmManager.swift in Sources */,
 				A965B7F12825011700A15FC9 /* AppDelegate.swift in Sources */,
 				A96817F628253D9300262D50 /* UIImageView.swift in Sources */,
 				A965B80D2825054000A15FC9 /* MovieListTableViewCell.swift in Sources */,

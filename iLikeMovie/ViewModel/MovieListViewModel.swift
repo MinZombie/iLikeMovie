@@ -9,10 +9,14 @@ import Foundation
 
 protocol MovieListInput {
     func search(query: String)
+    func addFavorite(with item: MovieItemViewModel)
+    func removeFavorite(with item: MovieItemViewModel)
+    func getFavoriteMovies()
 }
 
 protocol MovieListOutput {
     var movies: Observable<[MovieItemViewModel]> { get }
+    var favoriteMovies: Observable<[MovieItemViewModel]> { get }
 }
 
 protocol MovieListViewModel: MovieListInput, MovieListOutput {}
@@ -25,6 +29,7 @@ final class DefaultMovieListViewModel: MovieListViewModel {
     
     // MARK: - Output
     var movies: Observable<[MovieItemViewModel]> = Observable([])
+    var favoriteMovies: Observable<[MovieItemViewModel]> = Observable([])
     
     init(service: APIServiceProtocol) {
         self.service = service
@@ -49,5 +54,51 @@ extension DefaultMovieListViewModel {
                 print(error)
             }
         }
+    }
+    
+    func getFavoriteMovies() {
+        favoriteMovies.value.removeAll()
+        let temp = RealmManager.shared.get()
+        temp.forEach {
+            favoriteMovies.value.append(
+                .init(
+                    movie: .init(
+                        title: $0.title,
+                        link: $0.link,
+                        image: $0.image,
+                        director: $0.director,
+                        actor: $0.actor,
+                        userRating: $0.userRating
+                    ),
+                    isFavorite: true,
+                    id: $0._id
+                )
+            )
+        }
+    }
+    
+    func addFavorite(with item: MovieItemViewModel) {
+        RealmManager.shared.add(with: item)
+        favoriteMovies.value.append(
+            .init(
+                movie: .init(
+                    title: item.title,
+                    link: item.link,
+                    image: item.image,
+                    director: item.director,
+                    actor: item.actor,
+                    userRating: item.userRating
+                ),
+                isFavorite: true,
+                id: item.id
+            )
+        )
+    }
+    
+    func removeFavorite(with item: MovieItemViewModel) {
+        RealmManager.shared.remove(with: item)
+        let filtered = favoriteMovies.value.filter { $0.id != item.id }
+        favoriteMovies.value = filtered
+
     }
 }

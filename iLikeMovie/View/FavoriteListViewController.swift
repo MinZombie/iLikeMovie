@@ -41,9 +41,18 @@ class FavoriteListViewController: UIViewController {
         bind(viewModel: viewModel)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.getFavoriteMovies()
+    }
+    
     // MARK: - Private
     private func bind(viewModel: MovieListViewModel) {
-        
+        viewModel.favoriteMovies.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
     }
     
     private func setUpTableView() {
@@ -63,13 +72,13 @@ class FavoriteListViewController: UIViewController {
 // MARK: - UITableViewDataSource, UITableViewDelegate
 extension FavoriteListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.movies.value.count
+        return viewModel.favoriteMovies.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieListTableViewCell.identifier, for: indexPath) as? MovieListTableViewCell else { return UITableViewCell() }
         
-        cell.configure(with: viewModel.movies.value[indexPath.row])
+        cell.configure(with: viewModel.favoriteMovies.value[indexPath.row], viewModel: viewModel)
         
         return cell
     }
