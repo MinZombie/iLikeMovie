@@ -12,6 +12,7 @@
 		A965B7F52825011700A15FC9 /* MovieListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A965B7F42825011700A15FC9 /* MovieListTableViewController.swift */; };
 		A965B7FA2825011900A15FC9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A965B7F92825011900A15FC9 /* Assets.xcassets */; };
 		A965B7FD2825011900A15FC9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A965B7FB2825011900A15FC9 /* LaunchScreen.storyboard */; };
+		A965B80D2825054000A15FC9 /* MovieListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A965B80C2825054000A15FC9 /* MovieListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		A965B7F92825011900A15FC9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A965B7FC2825011900A15FC9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A965B7FE2825011900A15FC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A965B80C2825054000A15FC9 /* MovieListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 		A965B7EF2825011700A15FC9 /* iLikeMovie */ = {
 			isa = PBXGroup;
 			children = (
+				A965B7FE2825011900A15FC9 /* Info.plist */,
 				A965B80B2825028000A15FC9 /* Resources */,
 				A965B80A2825022100A15FC9 /* Application */,
 				A965B8082825017500A15FC9 /* Util */,
@@ -90,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				A965B7F42825011700A15FC9 /* MovieListTableViewController.swift */,
+				A965B80C2825054000A15FC9 /* MovieListTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -115,7 +119,6 @@
 			children = (
 				A965B7FB2825011900A15FC9 /* LaunchScreen.storyboard */,
 				A965B7F92825011900A15FC9 /* Assets.xcassets */,
-				A965B7FE2825011900A15FC9 /* Info.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 			files = (
 				A965B7F52825011700A15FC9 /* MovieListTableViewController.swift in Sources */,
 				A965B7F12825011700A15FC9 /* AppDelegate.swift in Sources */,
+				A965B80D2825054000A15FC9 /* MovieListTableViewCell.swift in Sources */,
 				A965B7F32825011700A15FC9 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
