@@ -23,6 +23,7 @@
 		A96817F328253B0D00262D50 /* MovieItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96817F228253B0D00262D50 /* MovieItemViewModel.swift */; };
 		A96817F628253D9300262D50 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96817F528253D9300262D50 /* UIImageView.swift */; };
 		A96817F828253DB300262D50 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96817F728253DB300262D50 /* ImageCacheManager.swift */; };
+		A96817FA2825435C00262D50 /* FavoriteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96817F92825435C00262D50 /* FavoriteListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		A96817F228253B0D00262D50 /* MovieItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieItemViewModel.swift; sourceTree = "<group>"; };
 		A96817F528253D9300262D50 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		A96817F728253DB300262D50 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
+		A96817F92825435C00262D50 /* FavoriteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				A965B7F42825011700A15FC9 /* MovieListTableViewController.swift */,
+				A96817F92825435C00262D50 /* FavoriteListViewController.swift */,
 				A965B80C2825054000A15FC9 /* MovieListTableViewCell.swift */,
 			);
 			path = View;
@@ -244,6 +247,7 @@
 				A965B7F12825011700A15FC9 /* AppDelegate.swift in Sources */,
 				A96817F628253D9300262D50 /* UIImageView.swift in Sources */,
 				A965B80D2825054000A15FC9 /* MovieListTableViewCell.swift in Sources */,
+				A96817FA2825435C00262D50 /* FavoriteListViewController.swift in Sources */,
 				A96817F828253DB300262D50 /* ImageCacheManager.swift in Sources */,
 				A965B7F32825011700A15FC9 /* SceneDelegate.swift in Sources */,
 				A96817F328253B0D00262D50 /* MovieItemViewModel.swift in Sources */,
