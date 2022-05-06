@@ -50,6 +50,17 @@ class MovieListTableViewController: UIViewController {
         return label
     }()
     
+    private let viewModel: MovieListViewModel
+    
+    // MARK: - init
+    init(viewModel: MovieListViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,9 +69,19 @@ class MovieListTableViewController: UIViewController {
         setUpSearchBar()
         setUpTableView()
         setUpNavigationItem()
+        
+        bind(viewModel: viewModel)
     }
     
     // MARK: - Private
+    private func bind(viewModel: MovieListViewModel) {
+        viewModel.movies.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
+    }
+    
     private func setUpNavigationItem() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: favoriteListButton)
@@ -95,12 +116,13 @@ class MovieListTableViewController: UIViewController {
 // MARK: - UITableViewDataSource, UITableViewDelegate
 extension MovieListTableViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return viewModel.movies.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieListTableViewCell.identifier, for: indexPath) as? MovieListTableViewCell else { return UITableViewCell() }
         
+        cell.configure(with: viewModel.movies.value[indexPath.row])
         
         return cell
     }

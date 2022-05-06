@@ -12,7 +12,7 @@ protocol MovieListInput {
 }
 
 protocol MovieListOutput {
-    
+    var movies: Observable<[MovieItemViewModel]> { get }
 }
 
 protocol MovieListViewModel: MovieListInput, MovieListOutput {}

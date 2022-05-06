@@ -70,6 +70,24 @@ class MovieListTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        movieTitle.text = nil
+        movieImageView.image = nil
+        favoritesImageView.imageView?.image = nil
+        director.text = nil
+        actors.text = nil
+        rating.text = nil
+    }
+    
+    func configure(with item: MovieItemViewModel) {
+        movieTitle.text = item.title
+        director.text = item.director
+        actors.text = item.actor
+        rating.text = item.userRating
+        movieImageView.setImageUrl(item.image)
+    }
+    
 }
 
 // MARK: - Private
