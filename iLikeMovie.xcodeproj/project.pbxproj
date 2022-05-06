@@ -13,6 +13,11 @@
 		A965B7FA2825011900A15FC9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A965B7F92825011900A15FC9 /* Assets.xcassets */; };
 		A965B7FD2825011900A15FC9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A965B7FB2825011900A15FC9 /* LaunchScreen.storyboard */; };
 		A965B80D2825054000A15FC9 /* MovieListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A965B80C2825054000A15FC9 /* MovieListTableViewCell.swift */; };
+		A96817E428252CA300262D50 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96817E328252CA300262D50 /* APIService.swift */; };
+		A96817E628252CFF00262D50 /* Movies.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96817E528252CFF00262D50 /* Movies.swift */; };
+		A96817E928252DD900262D50 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = A96817E828252DD900262D50 /* Realm */; };
+		A96817EB28252DD900262D50 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A96817EA28252DD900262D50 /* RealmSwift */; };
+		A96817ED28252F1D00262D50 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96817EC28252F1D00262D50 /* APIKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +29,9 @@
 		A965B7FC2825011900A15FC9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A965B7FE2825011900A15FC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A965B80C2825054000A15FC9 /* MovieListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListTableViewCell.swift; sourceTree = "<group>"; };
+		A96817E328252CA300262D50 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		A96817E528252CFF00262D50 /* Movies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movies.swift; sourceTree = "<group>"; };
+		A96817EC28252F1D00262D50 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +39,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A96817EB28252DD900262D50 /* RealmSwift in Frameworks */,
+				A96817E928252DD900262D50 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +81,7 @@
 		A965B8042825014200A15FC9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A96817E528252CFF00262D50 /* Movies.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -78,6 +89,7 @@
 		A965B8052825014600A15FC9 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				A96817E328252CA300262D50 /* APIService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -101,6 +113,7 @@
 		A965B8082825017500A15FC9 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				A96817EC28252F1D00262D50 /* APIKey.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -139,6 +152,10 @@
 			dependencies = (
 			);
 			name = iLikeMovie;
+			packageProductDependencies = (
+				A96817E828252DD900262D50 /* Realm */,
+				A96817EA28252DD900262D50 /* RealmSwift */,
+			);
 			productName = iLikeMovie;
 			productReference = A965B7ED2825011700A15FC9 /* iLikeMovie.app */;
 			productType = "com.apple.product-type.application";
@@ -167,6 +184,9 @@
 				Base,
 			);
 			mainGroup = A965B7E42825011700A15FC9;
+			packageReferences = (
+				A96817E728252DD900262D50 /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = A965B7EE2825011700A15FC9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -193,7 +213,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A96817ED28252F1D00262D50 /* APIKey.swift in Sources */,
 				A965B7F52825011700A15FC9 /* MovieListTableViewController.swift in Sources */,
+				A96817E428252CA300262D50 /* APIService.swift in Sources */,
+				A96817E628252CFF00262D50 /* Movies.swift in Sources */,
 				A965B7F12825011700A15FC9 /* AppDelegate.swift in Sources */,
 				A965B80D2825054000A15FC9 /* MovieListTableViewCell.swift in Sources */,
 				A965B7F32825011700A15FC9 /* SceneDelegate.swift in Sources */,
@@ -410,6 +433,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A96817E728252DD900262D50 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.25.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A96817E828252DD900262D50 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A96817E728252DD900262D50 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		A96817EA28252DD900262D50 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A96817E728252DD900262D50 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A965B7E52825011700A15FC9 /* Project object */;
 }
