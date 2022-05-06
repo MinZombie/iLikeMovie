@@ -55,6 +55,7 @@ class MovieListTableViewController: UIViewController {
     // MARK: - init
     init(viewModel: MovieListViewModel) {
         self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -85,6 +86,8 @@ class MovieListTableViewController: UIViewController {
     private func setUpNavigationItem() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: favoriteListButton)
+        
+        favoriteListButton.addTarget(self, action: #selector(didTapFavoriteListButton(_:)), for: .touchUpInside)
     }
     
     private func setUpSearchBar() {
@@ -113,6 +116,14 @@ class MovieListTableViewController: UIViewController {
     }
 }
 
+// MARK: - @objc
+extension MovieListTableViewController {
+    @objc private func didTapFavoriteListButton(_ sender: UIButton) {
+        let vc = FavoriteListViewController(viewModel: viewModel)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
 // MARK: - UITableViewDataSource, UITableViewDelegate
 extension MovieListTableViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -135,6 +146,7 @@ extension MovieListTableViewController: UITableViewDataSource, UITableViewDelega
 // MARK: - UISearchBarDelegate
 extension MovieListTableViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
+        guard let text = searchBar.text, !text.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+        viewModel.search(query: text)
     }
 }
