@@ -106,7 +106,6 @@ class MovieListTableViewController: UIViewController {
         view.addSubview(tableView)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.prefetchDataSource = self
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 0),
@@ -126,7 +125,7 @@ extension MovieListTableViewController {
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching
-extension MovieListTableViewController: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
+extension MovieListTableViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.movies.value.count
     }
@@ -143,8 +142,15 @@ extension MovieListTableViewController: UITableViewDataSource, UITableViewDelega
         return MovieListTableViewCell.height
     }
     
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        viewModel.prefetch()
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = tableView.contentOffset.y
+        let contentSize = tableView.contentSize.height
+        let frameHeight = scrollView.frame.size.height
+        
+        if frameHeight > contentSize - position {
+            guard !viewModel.isLoading else { return }
+            viewModel.prefetch()
+        }
     }
 }
 

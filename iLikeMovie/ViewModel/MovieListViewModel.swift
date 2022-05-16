@@ -18,6 +18,7 @@ protocol MovieListInput {
 protocol MovieListOutput {
     var movies: Observable<[MovieItemViewModel]> { get }
     var favoriteMovies: Observable<[MovieItemViewModel]> { get }
+    var isLoading: Bool { get }
 }
 
 protocol MovieListViewModel: MovieListInput, MovieListOutput {}
@@ -32,6 +33,7 @@ final class DefaultMovieListViewModel: MovieListViewModel {
     // MARK: - Output
     var movies: Observable<[MovieItemViewModel]> = Observable([])
     var favoriteMovies: Observable<[MovieItemViewModel]> = Observable([])
+    var isLoading: Bool = false
     
     init(service: APIServiceProtocol) {
         self.service = service
@@ -107,17 +109,20 @@ extension DefaultMovieListViewModel {
     
     func prefetch() {
         self.page += 1
+        
         if (page * 10) > total {
             return
             
         } else {
+            
+            self.isLoading = true
             
             service.search(query: query, page: page) { result in
                 switch result {
                 case .success(let response):
                     
                     _ = response.items.map { self.movies.value.append(MovieItemViewModel.init(movie: $0)) }
-                    
+                    self.isLoading = false
                 case .failure(let error):
                     
                     print(error)
