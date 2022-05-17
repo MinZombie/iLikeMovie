@@ -108,25 +108,24 @@ extension DefaultMovieListViewModel {
     }
     
     func prefetch() {
-        self.page += 1
-        
-        if (page * 10) > total {
+        guard (page * 10) < total else {
             return
+        }
+        
+        self.page += 1
+        self.isLoading = true
+        
+        service.search(query: query, page: page) { result in
+            self.isLoading = false
             
-        } else {
-            
-            self.isLoading = true
-            
-            service.search(query: query, page: page) { result in
-                switch result {
-                case .success(let response):
-                    
-                    _ = response.items.map { self.movies.value.append(MovieItemViewModel.init(movie: $0)) }
-                    self.isLoading = false
-                case .failure(let error):
-                    
-                    print(error)
-                }
+            switch result {
+            case .success(let response):
+                
+                _ = response.items.map { self.movies.value.append(MovieItemViewModel.init(movie: $0)) }
+                
+            case .failure(let error):
+                
+                print(error)
             }
         }
     }
