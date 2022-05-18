@@ -1,28 +1,12 @@
 //
-//  Movies.swift
+//  FavoriteMovie.swift
 //  iLikeMovie
 //
-//  Created by 민선기 on 2022/05/06.
+//  Created by 민선기 on 2022/05/18.
 //
 
 import Foundation
 import RealmSwift
-
-struct Movies: Decodable {
-    let total: Int
-    let display: Int
-    let items: [Movie]
-}
-
-struct Movie: Decodable {
-    let title: String
-    let link: String
-    let image: String
-    let director: String
-    let actor: String
-    let userRating: String
-
-}
 
 class FavoriteMovie: Object {
     @Persisted var title: String

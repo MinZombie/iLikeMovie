@@ -8,13 +8,13 @@
 import Foundation
 
 protocol APIServiceProtocol {
-    func search(query: String, page: Int, completion: @escaping (Result<Movies, Error>) -> Void)
+    func search(query: String, page: Int, completion: @escaping (Result<SearchResponse, Error>) -> Void)
 }
 
 final class APIService: APIServiceProtocol {
     let baseUrl: String = "https://openapi.naver.com/v1/search/movie.json?display=10&"
     
-    func search(query: String, page: Int, completion: @escaping (Result<Movies, Error>) -> Void) {
+    func search(query: String, page: Int, completion: @escaping (Result<SearchResponse, Error>) -> Void) {
         let urlString = baseUrl + "query=\(query)" + "&" + "start=\((page * 10) + 1)"
 
         guard let encodedUrl = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
@@ -32,7 +32,7 @@ final class APIService: APIServiceProtocol {
             guard let data = data else { return }
             
             do {
-                let result = try JSONDecoder().decode(Movies.self, from: data)
+                let result = try JSONDecoder().decode(SearchResponse.self, from: data)
                 completion(.success(result))
             } catch {
                 completion(.failure(error))
