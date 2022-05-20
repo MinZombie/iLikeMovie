@@ -27,7 +27,7 @@ class FavoriteMovie: Object {
         actor: String,
         userRating: String,
         isFavorite: Bool,
-        id: UUID
+        id: UUID = UUID()
     ) {
         self.init()
         self.title = title

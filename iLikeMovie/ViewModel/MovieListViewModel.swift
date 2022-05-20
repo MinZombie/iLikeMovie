@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol MovieListInput {
     func search(query: String)
@@ -50,9 +51,22 @@ extension DefaultMovieListViewModel {
         service.search(query: query, page: page) { result in
             switch result {
             case .success(let response):
-                
-                _ = response.items.map { self.movies.value.append(MovieItemViewModel.init(movie: $0)) }
-                self.total = response.total
+                DispatchQueue.main.async {
+                    self.getFavoriteMovies()
+                    let linksOfFavoriteMovies = Set(self.favoriteMovies.value.map { $0.link })
+                    let linksOfSearchedMovies = Set(response.items.map { $0.link })
+                    let sameLinks: Set<String> = linksOfFavoriteMovies.intersection(linksOfSearchedMovies)
+
+                    _ = response.items.map {
+                        self.movies.value.append(
+                            MovieItemViewModel.init(
+                                movie: $0,
+                                isFavorite: sameLinks.contains($0.link) ? true : false
+                            )
+                        )
+                    }
+                    self.total = response.total
+                }
                 
             case .failure(let error):
                 
@@ -75,8 +89,7 @@ extension DefaultMovieListViewModel {
                         actor: $0.actor,
                         userRating: $0.userRating
                     ),
-                    isFavorite: true,
-                    id: $0._id
+                    isFavorite: true
                 )
             )
         }
@@ -94,17 +107,26 @@ extension DefaultMovieListViewModel {
                     actor: item.actor,
                     userRating: item.userRating
                 ),
-                isFavorite: true,
-                id: item.id
+                isFavorite: true
             )
         )
+        for i in 0..<movies.value.count {
+            if movies.value[i].link == item.link {
+                movies.value[i].isFavorite = true
+            }
+        }
     }
     
     func removeFavorite(with item: MovieItemViewModel) {
         RealmManager.shared.remove(with: item)
-        let filtered = favoriteMovies.value.filter { $0.id != item.id }
+        let filtered = favoriteMovies.value.filter { $0.link != item.link }
         favoriteMovies.value = filtered
-
+        
+        for i in 0..<movies.value.count {
+            if movies.value[i].link == item.link {
+                movies.value[i].isFavorite = false
+            }
+        }
     }
     
     func prefetch() {
@@ -121,7 +143,18 @@ extension DefaultMovieListViewModel {
             switch result {
             case .success(let response):
                 
-                _ = response.items.map { self.movies.value.append(MovieItemViewModel.init(movie: $0)) }
+                let linksOfFavoriteMovies = Set(self.favoriteMovies.value.map { $0.link })
+                let linksOfSearchedMovies = Set(response.items.map { $0.link })
+                let sameLinks: Set<String> = linksOfFavoriteMovies.intersection(linksOfSearchedMovies)
+                
+                _ = response.items.map {
+                    self.movies.value.append(
+                        MovieItemViewModel.init(
+                            movie: $0,
+                            isFavorite: sameLinks.contains($0.link) ? true : false
+                        )
+                    )
+                }
                 
             case .failure(let error):
                 

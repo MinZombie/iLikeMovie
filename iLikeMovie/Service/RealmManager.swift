@@ -23,8 +23,7 @@ final class RealmManager {
             director: item.director,
             actor: item.actor,
             userRating: item.userRating,
-            isFavorite: item.isFavorite,
-            id: item.id
+            isFavorite: true
         )
         try! self.realm.write {
             self.realm.add(movie)
@@ -37,7 +36,7 @@ final class RealmManager {
     
     func remove(with item: MovieItemViewModel) {
         let moive = realm.objects(FavoriteMovie.self).where {
-            $0._id == item.id
+            $0.link == item.link
         }
         
         try! realm.write {

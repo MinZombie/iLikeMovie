@@ -15,12 +15,10 @@ struct MovieItemViewModel: Equatable {
     let actor: String
     let userRating: String
     var isFavorite: Bool
-    let id: UUID
     
     init(
         movie: Movie,
-        isFavorite: Bool = false,
-        id: UUID = UUID()
+        isFavorite: Bool
     ) {
         self.title = movie.title.replacingOccurrences(of: "</b>", with: "").replacingOccurrences(of: "<b>", with: "")
         self.link = movie.link
@@ -29,7 +27,6 @@ struct MovieItemViewModel: Equatable {
         self.actor = "출연: \(movie.actor.split(separator: "|").joined(separator: ", "))"
         self.userRating = "평점: \(movie.userRating)"
         self.isFavorite = isFavorite
-        self.id = id
     }
 
 }
