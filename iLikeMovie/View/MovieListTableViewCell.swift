@@ -15,7 +15,6 @@ class MovieListTableViewCell: UITableViewCell {
     
     private var item: MovieItemViewModel!
     private var viewModel: MovieListViewModel!
-    private var isFavorite: Bool = false
     
     private let movieImageView: UIImageView = {
        let imageView = UIImageView()
@@ -33,12 +32,11 @@ class MovieListTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var favoritesImageView: UIButton = {
+    private lazy var favoriteButton: UIButton = {
        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setContentCompressionResistancePriority(.init(rawValue: 800), for: .horizontal)
         button.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        button.tintColor = .gray
         button.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(didTapFavoriteButton(_:)), for: .touchUpInside)
         return button
@@ -47,32 +45,24 @@ class MovieListTableViewCell: UITableViewCell {
     private let director: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 13)
-        label.text = "title"
         return label
     }()
     
     private let actors: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 13)
-        label.text = "title"
         return label
     }()
     
     private let rating: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 13)
-        label.text = "title"
         return label
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpConstraints()
-        //test()
-    }
-    
-    func test() {
-        favoritesImageView.tintColor = item.isFavorite ? .systemYellow : .systemGray
     }
     
     required init?(coder: NSCoder) {
@@ -83,7 +73,7 @@ class MovieListTableViewCell: UITableViewCell {
         super.prepareForReuse()
         movieTitle.text = nil
         movieImageView.image = nil
-        favoritesImageView.imageView?.image = nil
+        favoriteButton.imageView?.image = nil
         director.text = nil
         actors.text = nil
         rating.text = nil
@@ -92,7 +82,6 @@ class MovieListTableViewCell: UITableViewCell {
     func configure(with item: MovieItemViewModel, viewModel: MovieListViewModel) {
         self.item = item
         self.viewModel = viewModel
-        self.isFavorite = item.isFavorite
         
         movieTitle.text = item.title
         director.text = item.director
@@ -100,7 +89,7 @@ class MovieListTableViewCell: UITableViewCell {
         rating.text = item.userRating
         movieImageView.setImageUrl(item.image)
         
-        favoritesImageView.tintColor = item.isFavorite ? .systemYellow : .systemGray
+        favoriteButton.tintColor = item.isFavorite ? .systemYellow : .systemGray
     }
     
 }
@@ -119,7 +108,7 @@ extension MovieListTableViewCell {
         }
         
         item.isFavorite.toggle()
-        favoritesImageView.tintColor = item.isFavorite ? .systemYellow : .systemGray
+        favoriteButton.tintColor = item.isFavorite ? .systemYellow : .systemGray
     }
 }
 
@@ -127,7 +116,7 @@ extension MovieListTableViewCell {
 extension MovieListTableViewCell {
     private func setUpConstraints() {
         
-        let titleStackView = UIStackView(arrangedSubviews: [movieTitle, favoritesImageView])
+        let titleStackView = UIStackView(arrangedSubviews: [movieTitle, favoriteButton])
         titleStackView.axis = .horizontal
         titleStackView.spacing = 8
     
@@ -149,7 +138,7 @@ extension MovieListTableViewCell {
             outerStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
             outerStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
             movieImageView.widthAnchor.constraint(equalToConstant: 80),
-            favoritesImageView.widthAnchor.constraint(equalToConstant: 36)
+            favoriteButton.widthAnchor.constraint(equalToConstant: 36)
             
         ])
     }
